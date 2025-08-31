@@ -5,3 +5,4 @@ mgba-src/
 _builder_cdef.i
 cdef.h
 mgba.egg-info
+mgba
