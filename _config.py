@@ -2,7 +2,8 @@ import os
 import platform
 from pathlib import Path
 
-path_to_libmgba_py = Path(".").absolute()
+relative_path_to_libmgba_py = Path(".")
+path_to_libmgba_py = relative_path_to_libmgba_py.absolute()
 
 if platform.system() in ("Windows", "Darwin"):
     path_to_mgba_root = Path("./mgba-src").absolute()

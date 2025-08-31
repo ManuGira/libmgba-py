@@ -6,13 +6,13 @@ import subprocess
 
 import cffi
 
-from _config import path_to_libmgba_py, path_to_mgba_build, path_to_mgba_root
+from _config import relative_path_to_libmgba_py, path_to_libmgba_py, path_to_mgba_build, path_to_mgba_root
 
 source_files = [
-    path_to_libmgba_py / "vfs-py.c",
-    path_to_libmgba_py / "core.c",
-    path_to_libmgba_py / "log.c",
-    path_to_libmgba_py / "sio.c",
+    relative_path_to_libmgba_py / "vfs-py.c",
+    relative_path_to_libmgba_py / "core.c",
+    relative_path_to_libmgba_py / "log.c",
+    relative_path_to_libmgba_py / "sio.c",
 ]
 
 include_dirs = [
@@ -93,8 +93,8 @@ with open(path_to_libmgba_py / "_builder_source.h") as file:
     ffi.set_source("mgba._pylib", file.read(),
                    include_dirs=include_dirs,
                    libraries=["mgba"],
-                   library_dirs=list(str(path) for path in library_dirs),
-                   sources=(str(path) for path in source_files))
+                   library_dirs=[str(path) for path in library_dirs],
+                   sources=[str(path) for path in source_files])
 ffi.cdef('\n'.join(lines))
 
 if __name__ == "__main__":
