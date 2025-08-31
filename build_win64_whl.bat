@@ -1,5 +1,6 @@
 @echo off
 
+REM Ensure that we are running in the right environment
 WHERE /q cl.exe
 IF %ERRORLEVEL% NEQ 0 (
     echo cl.exe cannot be found in PATH. Is Visual Studio installed? Are you running the 'Native Tools Command Prompt'?
@@ -12,10 +13,16 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B 1
 )
 
-REM Python bindings and create the wheel
-copy mgba-script\*.py 
-uv run setup.py build --build-lib build/win64
+REM Ensure that mgba-src/build/Release contains the dlls built by build_win64_dll.bat
+IF NOT EXIST mgba-src\build\Release\mgba.dll (
+    echo mgba.dll not found. Did you run build_win64_dll.bat first?
+    EXIT /B 1
+)
+
+REM Build Python bindings and create the wheel
+uv run setup.py build --build-lib build\win64
 copy mgba-src\build\Release\*.dll build\win64\mgba
+uv run python -m build --wheel --outdir build\win64
 
 @echo on
 @echo Done!

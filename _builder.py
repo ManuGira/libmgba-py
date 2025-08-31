@@ -60,7 +60,7 @@ lines = []
 last_line_was_empty = True
 ignoring_lines = True
 
-line_indicator_pattern = re.compile('^#(?:line)? \d+ "([^"]+)"(?: \d+)?$')
+line_indicator_pattern = re.compile(r'^#(?:line)? \d+ "([^"]+)"(?: \d+)?$')
 
 for line in preprocessed_header.splitlines():
     line = line.strip()

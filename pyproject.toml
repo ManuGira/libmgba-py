@@ -1,11 +1,24 @@
 [project]
-name = "libmgba-py"
-version = "0.1.0"
+name = "mgba"
+authors = [
+  {name = "Jeffrey Pfau", email = "jeffrey@endrift.com"},
+]
 description = "Add your description here"
 readme = "README.md"
+license = "MPL-2.0"
 requires-python = ">=3.12"
 dependencies = [
     "cffi>=1.17.1",
-    "pillow>=11.3.0",
     "setuptools>=80.9.0",
 ]
+classifiers = [
+    "Programming Language :: C",
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment",
+    "Topic :: System :: Emulators",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+pil = ["Pillow>=11.3.0"]
