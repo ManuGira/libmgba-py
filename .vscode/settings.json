@@ -1,0 +1,59 @@
+{
+    
+
+    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorCustomizations": {
+        // dark:   #444466
+        // middark: #666688
+        // midlight: #aaaacc
+        // light:  #eeeeff
+
+        // color:  #cccc66
+        // color light:  #aaaacc
+        // color pop:    #dddd33
+
+        "titleBar.activeForeground": "#cccc66",
+        "titleBar.activeBackground": "#444466",
+        "titleBar.inactiveBackground": "#666688",
+        "titleBar.border": "#9933cc",	
+        
+        "activityBar.background": "#9933cc",
+        "activityBar.activeBackground": "#dddd33",
+
+        "sideBarTitle.background": "#444466",
+        "sideBarTitle.foreground": "#eeeeff",
+        "sideBarTitle.border": "#9933cc",
+        
+        "sideBar.foreground": "#444466",
+        "sideBar.background": "#eeeeff",
+        "sideBar.border": "#9933cc",
+        
+        "sideBarSectionHeader.border": "#66cc66",
+        
+        "icon.foreground": "#9933cc",
+        
+        "menu.foreground": "#9933cc",
+        "menu.background": "#eeeeff",
+        
+        "tab.activeForeground": "#9933cc",
+        "tab.border": "#66cc66",
+        
+        "editorGroupHeader.tabsBorder": "#9933cc",
+        
+        "panel.border": "#9933cc",
+        "panel.background": "#eeeeff",
+
+        "activityBar.foreground": "#eeeeff",     
+    },
+    
+    "terminal.integrated.profiles.windows": {
+        "VS2022 Native Tools": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": [
+                "/k",
+                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "VS2022 Native Tools"
+}
