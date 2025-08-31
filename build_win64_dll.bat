@@ -23,7 +23,7 @@ IF %ERRORLEVEL% NEQ 0 (
 
 PUSHD .
 
-REM Download the mGBA sources to we can compile libmgba
+REM Download the mGBA sources so we can compile libmgba and its dlls
 git clone https://github.com/mgba-emu/mgba.git mgba-src
 cd mgba-src
 git checkout %MGBA_VERSION%
@@ -37,17 +37,7 @@ call vcpkg\bootstrap-vcpkg.bat
 
 REM Build mGBA (this also creates mgba.dll)
 vcpkg\vcpkg.exe install ffmpeg[vpx,x264] libepoxy libpng libzip lua sdl2 sqlite3 --triplet=x64-windows
-cmake -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_SHARED=ON -DBUILD_STATIC=ON ..
+cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_SHARED=ON -DBUILD_STATIC=ON -DUSE_FFMPEG=OFF -DUSE_DISCORD_RPC=OFF ..
 msbuild ALL_BUILD.vcxproj /property:Configuration=Release
 
-REM Now build the actual Python bindings
-cd ..\..
-python setup.py build --build-lib build/win64
-copy mgba-src\build\Release\*.dll build\win64\mgba
-
-@echo on
-@echo Done!
-@echo Distributable files are located in `.\build\win64\mgba\`.
-@echo off
-
-POPD
+REM dlls build done

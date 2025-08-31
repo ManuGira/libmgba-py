@@ -1,9 +1,16 @@
 mGBA Python Bindings
 =====================
 
-This is a fork of the Python bindings in the
-[mGBA repository](https://github.com/mgba-emu/mgba/tree/master/src/platform/python)
+This is a fork of Hanzi's [libmgba-py](https://github.com/hanzi/libmgba-py) project, which itself is a fork of the Python bindings of the [mGBA repository](https://github.com/mgba-emu/mgba/tree/master/src/platform/python)
 with some modifications to get it to build easily on my machine.
+
+The main changes I (ManuGira) added to Hanzi's version are:
+- Added python venv maintained with `uv` from [Astral](https://docs.astral.sh/uv/)
+- Split the build_win64.bat script into two scripts:
+  - `build_win64_dll.bat` to build the libmgba dlls
+  - `build_win64_whl.bat` to build the python bindings and create the wheel
+- Fixed some path issues in `_builder.py` to get it to build on my machine
+- Generate a wheel file for easier distribution. The wheel file can be installed in other python projects using `pip install <path-to-wheel-file>`
 
 
 ## What this is (and isn't)
