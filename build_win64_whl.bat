@@ -26,7 +26,8 @@ copy mgba-py\*.py mgba\
 copy mgba-src\build\Release\*.dll mgba\
 
 REM Build wheel directly from pyproject.toml
-uv run pip wheel --wheel-dir dist .
+uv run setup.py bdist_wheel
+
 
 @echo on
 @echo Done!

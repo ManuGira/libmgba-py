@@ -97,5 +97,4 @@ with open(path_to_libmgba_py / "_builder_source.h") as file:
                    sources=[str(path) for path in source_files])
 ffi.cdef('\n'.join(lines))
 
-if __name__ == "__main__":
-    ffi.compile()
+ffi.compile()

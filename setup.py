@@ -27,15 +27,6 @@ version = '.'.join([
     get_version_var('LIB_VERSION_PATCH')
 ])
 
-data_files = None
-if platform.system() == "Windows":
-    data_files = {"mgba": []}
-    for file in (path_to_mgba_build / "Release").glob("*.dll"):
-        # Chemin relatif à setup.py, destination dans le dossier mgba du package
-        rel_path = str(("mgba-src/build/Release/" + file.name).replace("\\", "/"))
-        data_files["mgba"].append(rel_path)
-
-
 setup(
     version=version,
     packages=["mgba"],
