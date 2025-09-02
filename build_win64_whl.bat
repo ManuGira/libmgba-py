@@ -20,16 +20,38 @@ IF NOT EXIST mgba-src\build\Release\mgba.dll (
     EXIT /B 1
 )
 
-REM Copy DLLs into package directory before building
+REM Python versions to build wheels for
+IF "%1"=="" (
+    SET PYTHON_VERSION=3.13
+) ELSE (
+    SET PYTHON_VERSION=%1
+)
+
+echo.
+echo ===============================
+echo Building wheel with Python %PYTHON_VERSION%
+echo ===============================
+
+REM Pin Python version
+uv python pin %PYTHON_VERSION%
+
+REM Clean previous build
+rmdir /s /q build
+rmdir /s /q mgba
+rmdir /s /q Release
+rmdir /s /q mgba.egg-info
 mkdir mgba
+
+REM Copy source files and DLLs
 copy mgba-py\*.py mgba\
 copy mgba-src\build\Release\*.dll mgba\
 
-REM Build wheel directly from pyproject.toml
+REM Build wheel
 uv run setup.py bdist_wheel
-
 
 @echo on
 @echo Done!
 @echo Wheel file is located in the .\dist\ directory.
+@echo All done!
+@echo Wheels are located in the .\dist\ directory.
 @echo off

@@ -6,3 +6,6 @@ _builder_cdef.i
 cdef.h
 mgba.egg-info
 mgba
+Release
+dist
+.python-version

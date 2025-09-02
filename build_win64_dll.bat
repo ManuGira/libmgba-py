@@ -1,7 +1,12 @@
 @echo off
 
 REM mGBA version that should be checked out from the Git repository. Must be a valid Git ref.
-SET MGBA_VERSION=0.10.2
+:: get version from argument, default to 0.10.2
+IF "%1"=="" (
+    SET MGBA_VERSION=0.10.2
+) ELSE (
+    SET MGBA_VERSION=%1
+)
 
 WHERE /q git
 IF %ERRORLEVEL% NEQ 0 (
@@ -25,11 +30,18 @@ PUSHD .
 
 REM Download the mGBA sources so we can compile libmgba and its dlls
 git clone https://github.com/mgba-emu/mgba.git mgba-src
-cd mgba-src
-git checkout %MGBA_VERSION%
-mkdir build
-cd build
+REM git reset to version %MGBA_VERSION%
+PUSHD mgba-src
+git reset --hard %MGBA_VERSION%
+REM set cmake minimum required to 3.5
+powershell -Command "(Get-Content .\CMakeLists.txt) -replace 'cmake_minimum_required\(VERSION 3\.1\)', 'cmake_minimum_required(VERSION 3.5)' | Set-Content .\CMakeLists.txt"
 
+mkdir build
+REM clean previous build files except vcpkg
+for /d %%D in ("build\*") do if /I not "%%~nxD"=="vcpkg" rd /s /q "%%D"
+for %%F in ("build\*") do if /I not "%%~nxF"=="vcpkg" del /q "%%F"
+
+PUSHD build
 REM Download vcpkg because the version included in Visual Studio might not work
 REM (that's the case as of 2023-09-22.)
 git clone https://github.com/microsoft/vcpkg
@@ -41,3 +53,5 @@ cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/b
 msbuild ALL_BUILD.vcxproj /property:Configuration=Release
 
 REM dlls build done
+POPD
+POPD
